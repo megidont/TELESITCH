@@ -340,10 +340,10 @@ void() worldspawn =
 	// 63 testing
 	lightstyle(63, "a");
 	world.currentroomcount = 0;
-	world.roomschosenlower = 0;
+	world.roomschosenlower = 1;	//fixes undefined room indices preventing spawning if 0 wasn't rolled.
 	world.roomschosenupper = 0;
 
-	while(world.currentroomcount <= world.desiredroomcount){
+	while(world.currentroomcount < world.desiredroomcount){
 
 		local float roomnumber = floor(world.totalroomcount * random());
 		local float roombit = bitshift(1, roomnumber);				//fteqcc extension func
@@ -352,27 +352,29 @@ void() worldspawn =
 		dprint("; roombit: ");
 		dprint(ftos(roombit));
 		dprint(".\n");
-		if(roomnumber >= 32){	//ugh
+		if(roomnumber != 0){
 
-			if( ! (world.roomschosenupper & roombit) ){
+			if(roomnumber >= 32){	//ugh
 
-				world.roomschosenupper |= roombit;
-				world.currentroomcount += 1;
+				if( ! (world.roomschosenupper & roombit) ){
 
-			}
+					world.roomschosenupper |= roombit;
+					world.currentroomcount += 1;
 
-		}else{
+				}
 
-			if( ! (world.roomschosenlower & roombit) ){
+			}else{
 
-				world.roomschosenlower |= roombit;
-				world.currentroomcount += 1;
+				if( ! (world.roomschosenlower & roombit) ){
+
+					world.roomschosenlower |= roombit;
+					world.currentroomcount += 1;
+
+				}
 
 			}
 
 		}
-
-		evilTestGlobal += 1;
 
 	}
 
