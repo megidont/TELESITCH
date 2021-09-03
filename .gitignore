@@ -1,0 +1,10 @@
+progs.dat
+progs.lno
+*.cfg
+glquake/*
+maps/*
+*.dem
+*.log
+*.bsp
+*.map
+*.pts
