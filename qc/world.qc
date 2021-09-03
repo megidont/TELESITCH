@@ -175,10 +175,16 @@ void() worldspawn =
 	InitBodyQue ();
 
 // custom map attributes
-	if (self.model == "maps/e1m8.bsp")
+/*	if (self.model == "maps/e1m8.bsp")
 		cvar_set ("sv_gravity", "100");
 	else
 		cvar_set ("sv_gravity", "800");
+*/
+//really john????? hardcoded level variables? smh. field time.
+	world.realgravity = world.gravity;
+	if(world.gravity == 0){ world.realgravity = 800; }
+//	local string gravitystring = ftos(gravity);
+	cvar_set("sv_gravity", ftos(world.realgravity));
 
 // the area based ambient sounds MUST be the first precache_sounds
 
@@ -333,6 +339,43 @@ void() worldspawn =
 
 	// 63 testing
 	lightstyle(63, "a");
+	world.currentroomcount = 0;
+	world.roomschosenlower = 0;
+	world.roomschosenupper = 0;
+
+	while(world.currentroomcount <= world.desiredroomcount){
+
+		local float roomnumber = floor(world.totalroomcount * random());
+		local float roombit = bitshift(1, roomnumber);				//fteqcc extension func
+		dprint("roomnumber: ");
+		dprint(ftos(roomnumber));
+		dprint("; roombit: ");
+		dprint(ftos(roombit));
+		dprint(".\n");
+		if(roomnumber >= 32){	//ugh
+
+			if( ! (world.roomschosenupper & roombit) ){
+
+				world.roomschosenupper |= roombit;
+				world.currentroomcount += 1;
+
+			}
+
+		}else{
+
+			if( ! (world.roomschosenlower & roombit) ){
+
+				world.roomschosenlower |= roombit;
+				world.currentroomcount += 1;
+
+			}
+
+		}
+
+		evilTestGlobal += 1;
+
+	}
+
 };
 
 void() StartFrame =

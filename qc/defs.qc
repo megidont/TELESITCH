@@ -417,6 +417,16 @@ float		skill;
 .string		wad;
 .string 	map;
 .float		worldtype;	// 0=medieval 1=metal 2=base
+.float		gravity;
+var .float	realgravity;
+.float		desiredroomcount;
+.float		totalroomcount;
+.float		roomcount;
+.float		chosen1;
+.float		chosen2;
+var .float		currentroomcount	= roomcount;
+var .float		roomschosenlower	= chosen1;
+var .float		roomschosenupper	= chosen2;
 
 //================================================
 
@@ -690,4 +700,9 @@ float (entity e, float healamount, float ignore) T_Heal; // health function
 
 float(entity targ, entity inflictor) CanDamage;
 
+.float roomindex;
 
+#define EXT_BITSHIFT
+float(float number, float quantity) bitshift = #218; //EXT_BITSHIFT
+
+var float evilTestGlobal = 0;
