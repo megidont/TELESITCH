@@ -57,7 +57,7 @@ void() func_room{
 
 	if(self.roomindex == 0){
 
-		dprint("ROOM INDICES COUNT FROM 1");
+		dprint("ROOM INDICES COUNT FROM 1\n");
 		return;
 
 	}
