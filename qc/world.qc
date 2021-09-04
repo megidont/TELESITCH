@@ -345,7 +345,7 @@ void() worldspawn =
 
 	while(world.currentroomcount < world.desiredroomcount){
 
-		local float roomnumber = floor(world.totalroomcount * random());
+		local float roomnumber = floor(world.totalroomcount * random() + 1);
 		local float roombit = bitshift(1, roomnumber);				//fteqcc extension func
 		dprint("roomnumber: ");
 		dprint(ftos(roomnumber));
@@ -385,6 +385,7 @@ void() StartFrame =
 	teamplay = cvar("teamplay");
 	skill = cvar("skill");
 	framecount = framecount + 1;
+	if(framecount == 1){ arrangerooms(); }		//hacky.
 };
 
 /*

@@ -700,9 +700,21 @@ float (entity e, float healamount, float ignore) T_Heal; // health function
 
 float(entity targ, entity inflictor) CanDamage;
 
+//
+//	rooms.qc
+//
 .float roomindex;
+.float doesspawn;
+var .float shouldspawn;
 
+//
+//	external command bitshift defined by FTEQCC extensions
+//
 #define EXT_BITSHIFT
 float(float number, float quantity) bitshift = #218; //EXT_BITSHIFT
 
-var float evilTestGlobal = 0;
+//
+//	globals and signatures
+//
+entity lastterminus;
+void() arrangerooms;
